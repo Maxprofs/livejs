@@ -1,10 +1,8 @@
 const express = require('express');
-const Router = express.Router();
+const router = express.Router();
 
-// Router.use((req, res, next) => {
-//     // do logging
-//     console.log('Something is happening.');
-//     next(); // make sure we go to the next routes and don't stop here
-// });
+router.get('/data', (req, res) => {
+	res.json({ message: 'hitting api endpoint' });
+});
 
-module.export = Router
+module.exports = router
