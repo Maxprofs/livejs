@@ -5,9 +5,16 @@ const cors = require('cors');
 const app = express();
 const routes = require('./server/Router/Routes');
 const PORT = process.env.PORT || 8080;
+const config = require('./server/config/config');
+const mongoose = require('mongoose');
 
 app.use(express.static(path.resolve(__dirname, 'public')))
 app.use(bodyParser.json());
+app.use(cors());
+config.configServer();
+
+//Connecting to mongoDB
+mongoose.connect(process.env.MONGOOSE_CONNECT);
 
 app.use('/api', routes);
 
