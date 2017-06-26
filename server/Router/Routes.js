@@ -4,7 +4,7 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-router.get('/user/add', (req, res) => {
+router.post('/user/add', (req, res) => {
 	let newUser = new User({
 		name: req.body.name,
 		email: req.body.email,
