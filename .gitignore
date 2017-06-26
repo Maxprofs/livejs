@@ -1,8 +1,7 @@
 
 /node_modules
 npm-debug.log
-/server/config
-config.js
+/server/config/*
 
 # IntelliJ
 *.iml
