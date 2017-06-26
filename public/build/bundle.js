@@ -25834,7 +25834,7 @@ var Navbar = function Navbar() {
         _react2.default.createElement(
           'a',
           { className: 'navbar-brand', href: '#' },
-          'Twitch-React'
+          'Twitch-Clone'
         )
       ),
       _react2.default.createElement(
