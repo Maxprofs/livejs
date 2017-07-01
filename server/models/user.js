@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 const UserSchema = mongoose.Schema({
     name: {
@@ -19,7 +21,7 @@ const UserSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User', UserSchema);
+const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
@@ -34,3 +36,4 @@ module.exports.addUser = (newUser, callback) => {
         })
     });
 }
+
