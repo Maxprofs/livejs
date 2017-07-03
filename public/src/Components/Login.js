@@ -1,33 +1,43 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import sweetalert from 'sweetalert';
 
 const Login = () => {
     const handleSubmit = event => {
         event.preventDefault();
-        let newUser = {
-            name: document.getElementById('login-name').value,
-            email: document.getElementById('login-email').value,
+        let user = {
             username: document.getElementById('login-username').value,
             password: document.getElementById('login-password').value
         }
         axios({
-            url: '/api/user/add',
+            url: '/api/user/get',
             method: "POST",
             cache: "false",
-            data: newUser
+            data: user
         }).then(response => {
-            console.log(response)
+           if (response.status == 200 && sessionStorage.length === 0) {
+               sessionStorage.setItem('userData', JSON.stringify(response.data))
+           }
+           else if (response.stats === 500 || response.status === 404) {
+              sweetalert("Oops...", "Something went wrong!", "error");
+              sessionStorage.clear();
+              clearInputs();
+           }
         }).catch(err => {
-            console.log(err)
+            sweetalert("Oops...", "Something went wrong!", "error");
+            sessionStorage.clear();
+            clearInputs();
         });
+    }
+    const clearInputs = () => {
+        document.getElementById('login-username').value = '';
+        document.getElementById('login-password').value = '';
     }
     return (
         <form className="form-control" onSubmit={handleSubmit}>
             <h2>Please Sign Up</h2>
             <div className="form-group">
-                <input id="login-name" type="text" placeholder="Please enter your name"/>
-                <input id="login-email" type="text" placeholder="Please email"/>
-                <input id="login-username" type="text" placeholder="Please enter your user name"/>
+                <input id="login-username" type="text" placeholder="Please enter your username"/>
                 <input id="login-password" type="password" placeholder="Please enter your password"/>
             </div>
             <div>

@@ -36,10 +36,12 @@ router.post('/user/get', (req, res) => {
 		let isVerrified = bcrypt.compareSync(userPassword, user.password);
 		if (isVerrified) {
 			let token = jwt.sign(user, process.env.SECRET_KEY);
-			res.status(200).json({success: true, token: token});
+			user.token = token;
+			console.log(user);
+			res.status(200).json({success: true, user: user});
 		}
 		else {
-			res.status(400).send('wrong password dumbass');			
+			res.status(400).send('invalid tokens');			
 		}
 	});
 })

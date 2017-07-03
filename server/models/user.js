@@ -18,10 +18,11 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    token: {
+        type: String
     }
 });
-
-const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
@@ -37,3 +38,6 @@ module.exports.addUser = (newUser, callback) => {
     });
 }
 
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;
